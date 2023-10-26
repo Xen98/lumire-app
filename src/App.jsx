@@ -15,7 +15,9 @@ function App() {
 
       const data = JSON.parse(lastMessage.data);
 
-      setPwm(data.pwm);
+      if (data.pwm) {
+        setPwm(data.pwm);
+      }
     }
   }, [lastMessage]);
 
