@@ -25,6 +25,14 @@ export function Dashboard() {
       if (data.lux) {
         setLux(data.lux);
       }
+
+      if (data.pwr) {
+        setPwr(data.pwr);
+      }
+
+      if (data.mov) {
+        setMov(data.mov);
+      }
     }
   }, [lastMessage]);
 
