@@ -18,8 +18,10 @@ export function Dashboard() {
 
       const data = JSON.parse(lastMessage.data);
 
-      if (data.pwm) {
-        setLed(data.pwm);
+      console.log(data);
+
+      if (data.led) {
+        setLed(data.led);
       }
 
       if (data.lux) {
