@@ -19,7 +19,7 @@ export function Dashboard() {
       const data = JSON.parse(lastMessage.data);
 
       if (data.pwm) {
-        setPwm(data.pwm);
+        setLed(data.pwm);
       }
 
       if (data.lux) {
