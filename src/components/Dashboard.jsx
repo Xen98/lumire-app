@@ -20,19 +20,19 @@ export function Dashboard() {
 
       console.log(data);
 
-      if (data.led) {
+      if (data.led !== null) {
         setLed(data.led);
       }
 
-      if (data.lux) {
+      if (data.lux !== null) {
         setLux(data.lux);
       }
 
-      if (data.pwr) {
+      if (data.pwr !== null) {
         setPwr(data.pwr);
       }
 
-      if (data.mov) {
+      if (data.mov !== null) {
         setMov(data.mov);
       }
     }
