@@ -8,7 +8,7 @@ export function Dashboard() {
 
   return (
     <>
-    <div className='mb-32 text-center font-bold'>
+    <div className='mb-16 text-center font-bold'>
       <span>Estado: </span><span className={`${connectionStatus.color} text-green`}>{connectionStatus.text}</span>
     </div>
 
