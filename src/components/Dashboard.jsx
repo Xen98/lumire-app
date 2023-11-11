@@ -1,64 +1,22 @@
-import useWebSocket, { ReadyState } from 'react-use-websocket';
-import { useEffect, useState } from 'react';
+
 import { DataCard } from './DataCard';
 import { StatusCard } from './StatusCard';
+import { useIlluminationData } from '../hooks/useIlluminationData';
 
 export function Dashboard() {
-  const [led, setLed] = useState(0);
-  const [lux, setLux] = useState(0);
-  const [pwr, setPwr] = useState(0);
-  const [mov, setMov] = useState(0);
-  
-  const [socketUrl] = useState('ws://localhost:3000/ws');
-  const {sendMessage, lastMessage, readyState} = useWebSocket(socketUrl);
-
-  useEffect(() => {
-    if (lastMessage !== null) {
-      console.log(lastMessage);
-
-      const data = JSON.parse(lastMessage.data);
-
-      console.log(data);
-
-      if (data.led !== null) {
-        setLed(data.led);
-      }
-
-      if (data.lux !== null) {
-        setLux(data.lux);
-      }
-
-      if (data.pwr !== null) {
-        setPwr(data.pwr);
-      }
-
-      if (data.mov !== null) {
-        setMov(data.mov);
-      }
-    }
-  }, [lastMessage]);
-
-  const connectionStatus = {
-    [ReadyState.CONNECTING]: 'Conectando',
-    [ReadyState.OPEN]: 'En línea',
-    [ReadyState.CLOSING]: 'Cerrando',
-    [ReadyState.CLOSED]: 'Cerrado',
-    [ReadyState.UNINSTANTIATED]: 'Sin instancia',
-  }[readyState];
-
-  // const handleClickSendMessage = useCallback(() => sendMessage('Hello'), []);
+  const { led, lux, pwr, mov, connectionStatus } = useIlluminationData();
 
   return (
     <>
-    <div className='mb-16 text-center font-bold'>
-      <span>Estado: {connectionStatus}</span>
+    <div className='mb-32 text-center font-bold'>
+      <span>Estado: </span><span className={`${connectionStatus.color} text-green`}>{connectionStatus.text}</span>
     </div>
 
-    <main className='grid  grid-cols-1 md:grid-cols-2 grid-rows-4 md:grid-rows-2 gap-4 mx-auto max-w-3xl'>
-      <DataCard data={led} title='Potencia de LEDs' />
-      <DataCard data={lux} title='Iluminancia' />
+    <main className='grid  grid-cols-1 sm:grid-cols-2 grid-rows-4 sm:grid-rows-2 gap-4 mx-auto max-w-3xl p-10'>
       <StatusCard data={pwr} title={pwr ? 'Encendido' : 'Apagado'} />
+      <DataCard data={led} title='Potencia de LEDs' />
       <StatusCard data={mov} title={mov ? 'Movimiento detectado' : 'Sin movimiento'} />
+      <DataCard data={lux} title='Iluminancia' />
     </main>
     </>
   )
